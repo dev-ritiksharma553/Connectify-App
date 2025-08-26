@@ -4,7 +4,7 @@ import { setPostSlice } from "@/redux/postSlice";
 import axios from "axios";
 import { setSuggestedUser } from "@/redux/authSlice";
 
-const useGetAllSuggestedUser = () => {
+const UseGetAllSuggestedUser = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,4 +30,4 @@ const useGetAllSuggestedUser = () => {
   }, [dispatch]);
 };
 
-export default useGetAllSuggestedUser;
+export default UseGetAllSuggestedUser;
