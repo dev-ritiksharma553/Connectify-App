@@ -1,7 +1,7 @@
 import React from "react";
-import LeftSidebar from "./LeftSidebar.jsx";
+import LeftSidebar from "./LeftSidebar";
 
-import RightSideBar from "./RightSideBar.jsx";
+import RightSideBar from "./RightSideBar";
 import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
