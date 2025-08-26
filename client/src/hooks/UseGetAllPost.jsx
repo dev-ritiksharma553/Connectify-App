@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { setPostSlice } from "@/redux/postSlice";
 import axios from "axios";
 
-const useGetAllPost = () => {
+const UseGetAllPost = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,4 +30,4 @@ const useGetAllPost = () => {
   }, [dispatch]);
 };
 
-export default useGetAllPost;
+export default UseGetAllPost;
