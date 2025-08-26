@@ -10,12 +10,16 @@ const useGetAllSuggestedUser = () => {
   useEffect(() => {
     const fetchAllUser = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/user/suggesteduser", {
-          withCredentials: true,
-        });
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          "https://connectify-app-a7vh.onrender.com/user/suggesteduser",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         if (response.data.success) {
-       
-            dispatch(setSuggestedUser(response?.data?.users))
+          dispatch(setSuggestedUser(response?.data?.users));
         }
       } catch (err) {
         console.error("Error fetching posts:", err);
@@ -23,7 +27,7 @@ const useGetAllSuggestedUser = () => {
     };
 
     fetchAllUser();
-  }, [dispatch]); 
+  }, [dispatch]);
 };
 
 export default useGetAllSuggestedUser;

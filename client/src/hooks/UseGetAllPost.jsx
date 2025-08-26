@@ -9,12 +9,17 @@ const useGetAllPost = () => {
   useEffect(() => {
     const fetchAllPost = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/post/all", {
-          withCredentials: true,
+        const token = localStorage.getItem("token");
+        if (!token) return; // stop if no token
+
+        const response = await axios.get("https://connectify-app-a7vh.onrender.com/post/all", {
+          headers: {
+            Authorization: `Bearer ${token}`, // token in header
+          },
         });
+
         if (response.data.success) {
-         
-          dispatch(setPostSlice(response.data.posts)); // use dispatch here
+          dispatch(setPostSlice(response.data.posts));
         }
       } catch (err) {
         console.error("Error fetching posts:", err);
@@ -22,7 +27,7 @@ const useGetAllPost = () => {
     };
 
     fetchAllPost();
-  }, [dispatch]); 
+  }, [dispatch]);
 };
 
 export default useGetAllPost;

@@ -89,7 +89,12 @@ module.exports.login = async (req, res) => {
     delete userWithoutPassword.password;
 
     // Set cookie and respond
-    res.cookie('token', token, { httpOnly: true, sameSite: 'strict', maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie('token', token, {
+      httpOnly: true,      // JS cannot access
+      secure: true,        // only send over HTTPS
+      sameSite: 'None',    // allow cross-site
+      maxAge: 24 * 60 * 60 * 1000
+    });
     return res.status(200).json({
       message: "Logged in successfully",
       success: true,
@@ -111,7 +116,7 @@ module.exports.logout = async (_, res) => {
     res.clearCookie('token', {
       httpOnly: true,
       sameSite: 'strict',
-     
+
     });
 
     return res.status(200).json({
@@ -229,14 +234,14 @@ module.exports.suggesteduser = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(200).json({
-      users:[],
+      users: [],
       message: "Not Fetched ALL User",
       success: false
     })
   }
 }
 
-module.exports.followUnfollow = async (req,res)=>{
+module.exports.followUnfollow = async (req, res) => {
   try {
     const followKrneWala = req.id;
     const jiskoFollowKrnaHai = req.params.id;
@@ -244,28 +249,28 @@ module.exports.followUnfollow = async (req,res)=>{
     const followKrneWalaUser = await User.findById(followKrneWala);
     const jiskoFollowKrnaHaiUser = await User.findById(jiskoFollowKrnaHai);
 
-    if(jiskoFollowKrnaHaiUser.followers.includes(followKrneWala)){
-      await User.updateOne({_id:jiskoFollowKrnaHai},{$pull:{followers:followKrneWala}});
-      await User.updateOne({_id:followKrneWala},{$pull:{followings:jiskoFollowKrnaHai}});
-      
-        return res.status(201).json({
-                message: "Unfollow Successfully",
-                success: true
-        })
+    if (jiskoFollowKrnaHaiUser.followers.includes(followKrneWala)) {
+      await User.updateOne({ _id: jiskoFollowKrnaHai }, { $pull: { followers: followKrneWala } });
+      await User.updateOne({ _id: followKrneWala }, { $pull: { followings: jiskoFollowKrnaHai } });
+
+      return res.status(201).json({
+        message: "Unfollow Successfully",
+        success: true
+      })
     }
-    else{
-        await User.updateOne({_id:jiskoFollowKrnaHai},{$push:{followers:followKrneWala}});
-        await User.updateOne({_id:followKrneWala},{$push:{followings:jiskoFollowKrnaHai}});
-        return res.status(201).json({
-                message: "follow Successfully",
-                success: true
-        })
+    else {
+      await User.updateOne({ _id: jiskoFollowKrnaHai }, { $push: { followers: followKrneWala } });
+      await User.updateOne({ _id: followKrneWala }, { $push: { followings: jiskoFollowKrnaHai } });
+      return res.status(201).json({
+        message: "follow Successfully",
+        success: true
+      })
     }
-    
+
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message:"There is some problem while folowing and unfollowing"
+      message: "There is some problem while folowing and unfollowing"
     })
   }
 }

@@ -23,10 +23,12 @@ const CommentDialoag = ({ onClose, postImage, post }) => {
     }
 
     try {
+              const token = localStorage.getItem("token");
+
       const response = await axios.post(
-        `http://localhost:7000/post/comment/${post._id}`,
+        `https://connectify-app-a7vh.onrender.com/post/comment/${post._id}`,
         { text },
-        { headers: { "Content-Type": "application/json" }, withCredentials: true }
+        { headers: { "Content-Type": "application/json",Authorization: `Bearer ${token}` }}
       );
 
       if (response.data.success) {

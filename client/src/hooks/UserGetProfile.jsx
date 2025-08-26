@@ -11,12 +11,16 @@ const useGetUserProfile = (userId) => {
 
     const fetchUserProfile = async () => {
       try {
+        const token = localStorage.getItem("token");
+
         const response = await axios.get(
-          `http://localhost:7000/user/profile/${userId}`,
-          { withCredentials: true }
+          `https://connectify-app-a7vh.onrender.com/user/profile/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
         );
         if (response.data.success) {
-            console.log(response.data.user)
+          console.log(response.data.user);
           dispatch(setUserProfile(response.data.user));
         }
       } catch (error) {

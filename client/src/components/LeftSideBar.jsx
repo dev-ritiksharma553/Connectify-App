@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import CreatePost from "./CreatePost";
-import { setAuthSlice } from "@/redux/authSlice";
+import { setAuthSlice, setSuggestedUser } from "@/redux/authSlice";
 import { setPostSlice } from "@/redux/postSlice";
 import { setMessages } from "@/redux/chatSlice";
 
@@ -46,14 +46,18 @@ const LeftSidebar = () => {
   const handleClick = async (item) => {
     if (item === "Logout") {
       try {
-        const response = await axios.get("http://localhost:7000/user/logout", {
+                const token = localStorage.getItem("token");
+
+        const response = await axios.get("https://connectify-app-a7vh.onrender.com/user/logout", {
           withCredentials: true,
+          Authorization: `Bearer ${token}`, 
         });
         if (response.data.success) {
           navigate("/login");
           dispatch(setAuthSlice(null));
           dispatch(setPostSlice([]));
           dispatch(setMessages([]));
+          dispatch(setSuggestedUser([]));
           toast.success(response.data.message);
         }
       } catch (err) {

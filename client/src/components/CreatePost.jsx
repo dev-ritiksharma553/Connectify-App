@@ -40,17 +40,23 @@ const CreatePost = ({ user, onClose }) => {
       formData.append("caption", caption);
       if (image) formData.append("image", image);
 
-      const response = await axios.post(
-        "http://localhost:7000/post/addpost",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-          withCredentials: true,
-        }
-      );
+        const token = localStorage.getItem("token");
+
+        const response = await axios.post(
+          "https://connectify-app-a7vh.onrender.com/post/addpost",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`, // <-- send token in header
+            },
+          }
+        );
 
       if (response.data.success) {
-        dispatch(setPostSlice([response.data.post,...posts]));
+        dispatch(setPostSlice([response.data.post,...posts
+
+        ]));
         setCaption("");
         removeImage();
         onClose();

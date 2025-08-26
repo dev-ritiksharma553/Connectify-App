@@ -6,17 +6,23 @@ import axios from "axios";
 const useGetAllMessages = () => {
   const { selectedUser } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const {messages} = useSelector((store)=>store.chat)
+  const { messages } = useSelector((store) => store.chat)
 
   useEffect(() => {
     if (!selectedUser?._id) return; // nothing to fetch
 
     const fetchAllMessages = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:7000/message/getallmessage/${selectedUser._id}`,
-          { withCredentials: true }
-        );
+  const token = localStorage.getItem("token");
+
+const response = await axios.get(
+  `https://connectify-app-a7vh.onrender.com/message/getallmessage/${selectedUser._id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`, // token in header
+    },
+  }
+);
 
         if (response.data.success) {
           dispatch(setMessages(response.data.messages || []));

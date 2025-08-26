@@ -39,7 +39,7 @@ function App() {
   // 1️⃣ Create socket and save in Redux
   useEffect(() => {
     if (user) {
-      const socketio = io("http://localhost:7000", {
+      const socketio = io("https://connectify-app-a7vh.onrender.com", {
         query: { userId: user._id },
         transports: ["websocket"],
       });

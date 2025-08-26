@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Signup = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -34,10 +34,16 @@ const Signup = () => {
 
     try {
       setIsLoading(true);
+              const token = localStorage.getItem("token");
+
       const response = await axios.post(
-        "http://localhost:7000/user/register",
+        "https://connectify-app-a7vh.onrender.com/user/register",
         formData,
-        { headers: { "Content-Type": "application/json" }, withCredentials: true }
+        {
+          headers: { "Content-Type": "application/json" },
+          Authorization: `Bearer ${token}`, // <-- send token in header
+          withCredentials: true
+        }
       );
 
       if (response.data.success) {
@@ -164,9 +170,8 @@ const Signup = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full flex justify-center items-center gap-2 bg-gray-900 text-white font-semibold py-2 rounded-lg hover:bg-gray-800 transition ${
-              isLoading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full flex justify-center items-center gap-2 bg-gray-900 text-white font-semibold py-2 rounded-lg hover:bg-gray-800 transition ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             {isLoading && (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

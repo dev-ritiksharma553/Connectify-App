@@ -24,11 +24,18 @@ const Post = ({ post }) => {
 
   const handleLike = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:7000/post/likes/${post._id}`,
-        {},
-        { withCredentials: true }
-      );
+        const token = localStorage.getItem("token");
+
+        const response = await axios.post(
+          `https://connectify-app-a7vh.onrender.com/post/likes/${post._id}`,
+          {}, // empty body
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // send token in header
+            },
+          }
+        );
+
 
       if (response.data.success) {
         // console.log(response.data.updatedLikes)
@@ -46,9 +53,13 @@ const Post = ({ post }) => {
 
   const deleteHandler = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `http://localhost:7000/post/delete/${post._id}`,
-        { withCredentials: true }
+        `https://connectify-app-a7vh.onrender.com/post/delete/${post._id}`,{
+            headers: {
+              Authorization: `Bearer ${token}`, // send token in header
+            },
+        }
       );
       if (response.data.success) {
         const updatedPost = posts.filter((p) => p._id !== post._id);

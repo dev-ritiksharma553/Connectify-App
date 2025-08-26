@@ -54,18 +54,26 @@ const EditProfile = () => {
       }
       data.append("bio", formData.bio);
       data.append("gender", formData.gender);
+      const token = localStorage.getItem("token");
 
-      const response = await axios.post(`http://localhost:7000/user/editprofile`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials:true
-      });
+      const response = await axios.post(
+        `https://connectify-app-a7vh.onrender.com/user/editprofile`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}` // <-- correct place
+          }
+        }
+      );
 
-      if(response.data.success){
-            dispatch(setAuthSlice(response.data.user))
-            navigate(`/profile/${user?._id}`)
-            toast.success("Profile updated successfully!");
+
+      if (response.data.success) {
+        dispatch(setAuthSlice(response.data.user))
+        navigate(`/profile/${user?._id}`)
+        toast.success("Profile updated successfully!");
       }
-      
+
     } catch (error) {
       toast.error("Failed to update profile");
     }

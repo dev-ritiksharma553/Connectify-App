@@ -24,13 +24,17 @@ const Login = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
+              const token = localStorage.getItem("token");
+
       const response = await axios.post(
-        "http://localhost:7000/user/login",
+        "https://connectify-app-a7vh.onrender.com/user/login",
         formData,
-        { headers: { "Content-Type": "application/json" }, withCredentials: true }
+        { headers: { "Content-Type": "application/json" },  Authorization: `Bearer ${token}`,  withCredentials: true }
       );
 
       if (response.data.success) {
+        localStorage.setItem('token',response.data.token);
+        
         console.log(response.data.user);
         dispatch(setAuthSlice(response?.data?.user));
         navigate('/');

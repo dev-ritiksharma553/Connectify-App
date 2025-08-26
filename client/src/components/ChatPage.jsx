@@ -37,14 +37,15 @@ const ChatPage = () => {
   if (!newMsg.trim()) return;
 
   try {
+      const token = localStorage.getItem("token");
     const response = await axios.post(
-      `http://localhost:7000/message/send/${selectedUser?._id}`,
+      `https://connectify-app-a7vh.onrender.com/message/send/${selectedUser?._id}`,
       { text: newMsg },   // ✅ wrap it in an object
       {
         headers: {
           "Content-Type": "application/json",
-        },
-        withCredentials: true,
+          Authorization: `Bearer ${token}`, 
+        }
       }
     );
 
