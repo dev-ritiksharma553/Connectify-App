@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMessages } from "@/redux/chatSlice";
 import axios from "axios";
 
-const useGetAllMessages = () => {
+const UseGetAllMessages = () => {
   const { selectedUser } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const { messages } = useSelector((store) => store.chat)
@@ -36,4 +36,4 @@ const response = await axios.get(
   }, [dispatch, selectedUser]); // ✅ include selectedUser
 };
 
-export default useGetAllMessages;
+export default UseGetAllMessages;
