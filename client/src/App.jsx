@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Signup from "./components/Signup";
 import MainLayout from "./components/MainLayout";
 import Home from "./components/Home";
@@ -7,14 +8,15 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import ChatPage from "./components/ChatPage";
+import NotificationPage from "./components/NotificationPage";
 
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { setOnlineUser } from "./redux/chatSlice";
 import { setSocket } from "./redux/socketSlice";
 import { setLikeNotification } from "./redux/notiSlice";
-import NotificationPage from "./components/NotificationPage";
 
+// ✅ 1. Define all routes using React Router
 const browserRouter = createBrowserRouter([
   {
     path: "/",
@@ -36,7 +38,7 @@ function App() {
   const { socket } = useSelector((store) => store.socketio);
   const dispatch = useDispatch();
 
-  // 1️⃣ Create socket and save in Redux
+  // ✅ 2. Initialize Socket.io and save socket in Redux
   useEffect(() => {
     if (user) {
       const socketio = io("https://connectify-app-a7vh.onrender.com", {
@@ -57,7 +59,7 @@ function App() {
     }
   }, [user, dispatch]);
 
-  // 2️⃣ Listen to notifications from Redux socket
+  // ✅ 3. Listen to notifications from socket
   useEffect(() => {
     if (socket) {
       socket.on("notification", (notification) => {
@@ -70,6 +72,7 @@ function App() {
     }
   }, [socket, dispatch]);
 
+  // ✅ 4. Render the router
   return <RouterProvider router={browserRouter} />;
 }
 
