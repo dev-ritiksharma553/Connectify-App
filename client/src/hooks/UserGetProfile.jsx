@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-const useGetUserProfile = (userId) => {
+const UseGetUserProfile = (userId) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,4 +32,4 @@ const useGetUserProfile = (userId) => {
   }, [userId, dispatch]);
 };
 
-export default useGetUserProfile;
+export default UseGetUserProfile;
