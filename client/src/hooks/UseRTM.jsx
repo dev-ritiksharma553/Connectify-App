@@ -4,7 +4,7 @@ import { setMessages } from "@/redux/chatSlice";
 import axios from "axios";
 // import { Socket } from "socket.io-client";
 
-const useGetRTM = () => {
+const UseGetRTM = () => {
   const { selectedUser } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const {messages} = useSelector((store)=>store.chat)
@@ -22,4 +22,4 @@ const useGetRTM = () => {
   }, [messages,setMessages]); // ✅ include selectedUser
 };
 
-export default useGetRTM;
+export default UseGetRTM;
