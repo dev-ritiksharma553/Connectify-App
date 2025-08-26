@@ -3,8 +3,8 @@ import Feed from "./Feed";
 import RightSideBar from "./RightSideBar";
 import LeftSideBar from "./LeftSideBar";
 import { useSelector } from "react-redux";
-import useGetAllPost from "@/hooks/useGetAllPost";
-import useGetAllSuggestedUser from "@/hooks/UseGetAllSuggestedUser";
+import useGetAllPost from "@/hooks/UseGetAllPost.jsx";
+import useGetAllSuggestedUser from "@/hooks/UseGetAllSuggestedUser.";
 
 
 const Home = () => {
