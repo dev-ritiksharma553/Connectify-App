@@ -18,7 +18,6 @@ import { setLikeNotification } from "./redux/notiSlice";
 
 // ✅ 1. Define all routes using React Router
 const browserRouter = createBrowserRouter([
-    { path: "/signup", element: <Signup /> },
   {
     path: "/",
     element: <MainLayout />,
