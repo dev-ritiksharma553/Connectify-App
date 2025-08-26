@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 
 app.use(cors({
-    origin: "http://localhost:5173",  // frontend URL
+    origin: "https://connectify-app-n6el.onrender.com",  // frontend URL
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"] // allow cookies
 }));
