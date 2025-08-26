@@ -1,7 +1,7 @@
 import React, { use } from "react";
 import Feed from "./Feed";
-import RightSidebar from "./RightSidebar";
-import LeftSidebar from "./LeftSidebar";
+import RightSideBar from "./RightSideBar";
+import LeftSideBar from "./LeftSideBar";
 import { useSelector } from "react-redux";
 import useGetAllPost from "@/hooks/useGetAllPost";
 import useGetAllSuggestedUser from "@/hooks/UseGetAllSuggestedUser";
@@ -22,7 +22,7 @@ const Home = () => {
       </div>
 
       <div className="hidden lg:block w-72 px-4 py-14 ml-20">
-        <RightSidebar />
+        <RightSideBar />
       </div>
     </div>
   );
